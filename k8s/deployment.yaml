@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-cicd-deployment
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: react-cicd
+
+  template:
+    metadata:
+      labels:
+        app: react-cicd
+
+    spec:
+      containers:
+      - name: react-cicd
+
+        image: nishchitavc/react-cicd-pipeline:latest
+
+        imagePullPolicy: Always
+
+        ports:
+        - containerPort: 80
