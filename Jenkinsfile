@@ -125,14 +125,6 @@ pipeline {
             }
         }
 
-        stage('Terraform Plan') {
-            steps {
-                dir('terraform') {
-                    bat 'terraform plan -var="key_name=nish_key_pair"'
-                }
-            }
-        }
-
         stage('Deploy to Kubernetes') {
             steps {
                 bat '''
