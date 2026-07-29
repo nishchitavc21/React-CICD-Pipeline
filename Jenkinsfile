@@ -111,16 +111,23 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                bat 'kubectl apply --validate=false -f k8s/deployment.yaml'
-                bat 'kubectl apply --validate=false -f k8s/service.yaml'
+                bat '''
+                set KUBECONFIG=C:\\Jenkins\\config
+                kubectl config current-context
+                kubectl apply -f k8s/deployment.yaml
+                kubectl apply -f k8s/service.yaml
+                '''
             }
         }
 
         stage('Verify Deployment') {
             steps {
-                bat 'kubectl rollout status deployment/react-cicd-deployment'
-                bat 'kubectl get pods'
-                bat 'kubectl get services'
+                bat '''
+                set KUBECONFIG=C:\\Jenkins\\config
+                kubectl get pods
+                kubectl get services
+                kubectl rollout status deployment/react-cicd-deployment
+                '''
             }
         }
     }
