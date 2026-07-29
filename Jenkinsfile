@@ -128,15 +128,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 dir('terraform') {
-                    bat 'terraform plan'
-                }
-            }
-        }
-
-        stage('Terraform Apply') {
-            steps {
-                dir('terraform') {
-                    bat 'terraform apply -auto-approve'
+                    bat 'terraform plan -var="key_name=nish_key_pair"'
                 }
             }
         }
